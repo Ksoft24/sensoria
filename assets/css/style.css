@@ -1,0 +1,373 @@
+/* ===========================================================
+   SENSOR-IA WEB - Componentes (usa SOLO variables de theme.css)
+   =========================================================== */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    transition: background .2s ease, color .2s ease;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 8px; }
+
+/* ---------- Layout general (sidebar + topbar + contenido) ---------- */
+.app-shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--bg-elevated);
+    border-right: 1px solid var(--border);
+    padding: 18px 0;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s ease;
+}
+
+/* ---------- Sidebar responsive (hamburguesa en movil/tablet) ---------- */
+.hamburger-btn {
+    display: none;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 4px 10px;
+    margin-right: 6px;
+}
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 40;
+}
+
+@media (max-width: 900px) {
+    .hamburger-btn { display: inline-block; }
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 50;
+        transform: translateX(-100%);
+        box-shadow: 4px 0 18px var(--shadow);
+    }
+    .app-shell.sidebar-open .sidebar { transform: translateX(0); }
+    .app-shell.sidebar-open .sidebar-overlay { display: block; }
+}
+.sidebar .brand {
+    padding: 0 20px 18px;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
+}
+.sidebar .nav-group-label {
+    padding: 14px 20px 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--text-muted);
+}
+.sidebar a.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    color: var(--text);
+    font-size: 14px;
+}
+.sidebar a.nav-link:hover { background: var(--panel-hover); text-decoration: none; }
+.sidebar a.nav-link.active {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* Boton "OnlineCam" (submenu colapsable dentro del sidebar) */
+.sidebar button.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 20px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+}
+.sidebar button.nav-link:hover { background: var(--panel-hover); }
+.sidebar button.nav-link.active { color: var(--accent); font-weight: 700; }
+.nav-group-arrow { font-size: 11px; color: var(--text-muted); transition: transform .15s ease; }
+.nav-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .2s ease;
+}
+.nav-submenu.open { max-height: 400px; }
+.nav-submenu a.nav-link { padding-left: 36px; font-size: 13px; }
+
+.main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+.topbar {
+    height: 60px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elevated);
+}
+.topbar .title { font-weight: 600; font-size: 16px; }
+
+.content { padding: 24px; flex: 1; }
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle-btn {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.theme-toggle-btn:hover { background: var(--panel-hover); }
+
+/* ---------- Cards / paneles ---------- */
+.card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 4px 18px var(--shadow);
+    padding: 20px;
+}
+.card + .card { margin-top: 16px; }
+.card h2, .card h3 { margin-top: 0; }
+
+.grid { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-5 { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+}
+
+/* ---------- Formularios ---------- */
+label { display: block; font-size: 13px; margin-bottom: 6px; color: var(--text-muted); }
+input, select, textarea {
+    width: 100%;
+    background: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+.field-row { display: flex; gap: 12px; }
+.field-row > * { flex: 1; }
+.checkbox-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.checkbox-row input { width: auto; margin: 0; }
+
+/* ---------- Botones ---------- */
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); text-decoration: none; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { background: var(--danger-hover); text-decoration: none; }
+.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-ghost:hover { background: var(--panel-hover); text-decoration: none; }
+.btn-block { width: 100%; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 10px 40px var(--shadow);
+    padding: 22px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+}
+.modal-close:hover { color: var(--text); }
+
+/* ---------- Tablas ---------- */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+th { color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+tr:hover td { background: var(--panel-hover); }
+
+/* ---------- Badges / estados ---------- */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.badge-ok      { background: rgba(46, 204, 113, .15); color: var(--ok); }
+.badge-warn    { background: rgba(242, 183, 5, .15); color: var(--warn); }
+.badge-danger  { background: rgba(229, 72, 77, .15); color: var(--danger); }
+.badge-muted   { background: var(--panel-hover); color: var(--text-muted); }
+
+/* ---------- Alertas / flash messages ---------- */
+.alert { border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 14px; }
+.alert-error   { background: rgba(229, 72, 77, .12); color: var(--danger); border: 1px solid var(--danger); }
+.alert-success { background: rgba(46, 204, 113, .12); color: var(--ok); border: 1px solid var(--ok); }
+.alert-warning { background: rgba(242, 183, 5, .14); color: var(--warn); border: 1px solid var(--warn); }
+.alert-info    { background: rgba(47, 128, 237, .12); color: var(--accent); border: 1px solid var(--accent); }
+
+/* ---------- Paginas de auth (login/registro) centradas ---------- */
+.auth-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+.auth-card { width: 100%; max-width: 460px; }
+.auth-card.wide { max-width: 720px; }
+.auth-logo { text-align: center; margin-bottom: 18px; font-weight: 700; font-size: 22px; color: var(--accent); }
+
+/* ---------- Modulo ONNX (placeholder de camara) ---------- */
+.camera-box {
+    position: relative;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+}
+.camera-box video, .camera-box canvas {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+}
+
+/* ===========================================================
+   AGREGAR AL FINAL de assets/css/style.css
+   (no reemplaza reglas existentes, solo agrega/afina)
+   =========================================================== */
+
+/* ---------- Camara que rellena todo el contenedor ---------- */
+/* Variante ".fill": en vez de una caja con aspect-ratio fijo (4:3),
+   ocupa el espacio disponible del contenedor y recorta el video/canvas
+   con object-fit:cover, sin deformarlo, igual sea horizontal o vertical. */
+.camera-box.fill {
+    aspect-ratio: unset;
+    width: 100%;
+    height: 60vh;
+    max-height: 640px;
+}
+.camera-box.fill video,
+.camera-box.fill canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* En movil/tablet en vertical, que la camara aproveche mas alto */
+@media (orientation: portrait) {
+    .camera-box.fill { height: 70vh; }
+}
+
+/* ---------- Layout tipo movil tambien en tablets grandes ---------- */
+/* Un iPad (incluso M1, pantalla grande) en VERTICAL desperdicia mucho
+   espacio con el sidebar fijo de escritorio. Se usa el mismo layout
+   "hamburguesa + contenido apilado" que en celulares, basado en
+   ORIENTACION en vez de solo el ancho en px (el iPad en vertical mide
+   ~1024px de ancho, mas que el breakpoint de 900px que ya existe). */
+@media (orientation: portrait) and (max-width: 1200px) {
+    .hamburger-btn { display: inline-block; }
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 50;
+        transform: translateX(-100%);
+        box-shadow: 4px 0 18px var(--shadow);
+    }
+    .app-shell.sidebar-open .sidebar { transform: translateX(0); }
+    .app-shell.sidebar-open .sidebar-overlay { display: block; }
+
+    /* Camara arriba, texto/estado abajo (mismo criterio que celular) */
+    .grid-2, .grid-5 { grid-template-columns: 1fr; }
+}
+
+/* ===== Sub-navegacion (pestañas dentro de una seccion, ej. Usuarios) ===== */
+.subnav {
+    display: flex; gap: 4px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+.subnav-link {
+    padding: 10px 16px; font-size: 13.5px; font-weight: 600;
+    color: var(--text-muted); text-decoration: none;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.subnav-link:hover { color: var(--text); }
+.subnav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ===== Paginacion ===== */
+.pagination { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+.pagination a, .pagination span {
+    padding: 6px 11px; border-radius: 6px; font-size: 13px; text-decoration: none;
+    border: 1px solid var(--border); color: var(--text);
+}
+.pagination a:hover { background: var(--panel-hover); }
+.pagination .current { background: var(--accent); color: #fff; border-color: var(--accent); }
+.pagination .disabled { opacity: .4; pointer-events: none; }

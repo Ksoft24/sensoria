@@ -1,0 +1,47 @@
+/* ===========================================================
+   SENSOR-IA WEB - Tokens de tema (oscuro / claro)
+   Todo el resto del CSS usa exclusivamente estas variables, asi
+   que para cambiar el look completo de la web solo hay que
+   tocar ESTE archivo (o agregar un tercer tema con otro
+   data-theme="...").
+   =========================================================== */
+
+:root[data-theme="dark"] {
+    --bg:          #0f1420;
+    --bg-elevated: #141b2b;
+    --panel:       #1b2233;
+    --panel-hover: #222b40;
+    --header:      #163a63;
+    --accent:      #2f80ed;
+    --accent-hover:#1f6fd8;
+    --text:        #eef2f7;
+    --text-muted:  #9aa5b1;
+    --border:      #2a3348;
+    --danger:      #e5484d;
+    --danger-hover:#c93b40;
+    --ok:          #2ecc71;
+    --warn:        #f2b705;
+    --shadow:      rgba(0, 0, 0, 0.45);
+    --input-bg:    #10182a;
+    --scrollbar:   #2a3348;
+}
+
+:root[data-theme="light"] {
+    --bg:          #f2f4f8;
+    --bg-elevated: #ffffff;
+    --panel:       #ffffff;
+    --panel-hover: #eef1f6;
+    --header:      #2f6fd8;
+    --accent:      #2f80ed;
+    --accent-hover:#1f6fd8;
+    --text:        #1c2333;
+    --text-muted:  #5b6472;
+    --border:      #dde3ec;
+    --danger:      #d64550;
+    --danger-hover:#b83840;
+    --ok:          #219653;
+    --warn:        #b8860b;
+    --shadow:      rgba(20, 30, 60, 0.08);
+    --input-bg:    #ffffff;
+    --scrollbar:   #dde3ec;
+}
